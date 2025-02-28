@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cálculo aritméticos de soma e subtração</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center">
+                <h2>Cálculo Aritimético</h2>
+            </div>
+            <div class="card-body">
+                <form id="freteForm">
+    <div>
+        <div class="mb-3">
+            <label class="form-label">Número 1:</label>
+            <input type="number" id="num1" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Operação(Adição ou Subtração):</label>
+            <input type="text" id="operacao" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Número 2:</label>
+            <input type="number" id="num2" class="form-control" required>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-success w-100" onclick="calcular()">Calcular</button>
+
+    <div class="card-footer">
+        <h4 class="text-center">Resultado</h4>
+        <p id="resultado" class="text-center"></p>
+    </div>
+</div>
+
+<script>
+    function calcular() {
+        let num1 = parseFloat(document.getElementById("num1").value);
+        let num2 = parseFloat(document.getElementById("num2").value);
+        let operacao = document.getElementById("operacao").value.toLowerCase();
+
+        if (!num1 || !num2 || !operacao){
+            alert ("Preencha todos os campos")
+            return;
+        }
+
+        if (operacao === "adição"){
+            resultado = (num1 + num2);
+        } else if (operacao === "subtração"){
+            resultado = (num1 + num2);
+        } else {
+            alert("Operção invalida!");
+            return;
+        }
+
+         document.getElementById("resultado").innerHTML = `
+                <strong> Resultado:</strong> ${resultado}<br>
+        `;
+
+    }
+</script>
+    
+</body>
+</html>

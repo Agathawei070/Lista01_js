@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center">
+                <h2>Cálculo Aritimético</h2>
+            </div>
+            <div class="card-body">
+                <form id="freteForm">
+    <div>
+        <div class="mb-3">
+            <label class="form-label">Informe uma data (dd/mm/aaaa):</label>
+            <input type="text" id="dataInput" class="form-control" required>
+        </div>
+
+        <button type="button" class="btn btn-success w-100" onclick="converterData()">Calcular</button>
+
+    <div class="card-footer">
+        <h4 class="text-center">Resultado</h4>
+        <p id="resultado" class="text-center"></p>
+    </div>
+
+    </div>
+
+    <script>
+        function converterData(){
+            let dataStr = document.getElementById("dataInput").value;
+            const regexData = /^([0-2]\d|3[01])\/(0\d|1[0-2])\/\d{4}$/;
+
+            if (!regexData.test(dataStr)) {
+                alert("Formato inválido! Use dd/mm/aaaa corretamente.");
+                return;
+            }
+
+            let partes = dataStr.split("/");
+            let dia = parseInt(partes[0]);
+            let mes = parseInt(partes[1]);
+            let ano = parseInt(partes[2]);
+
+            let meses = [
+                "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+            ];
+
+            let dataExtenso = `${dia} de ${meses[mes - 1]} de ${ano}`;
+            document.getElementById("resultado").innerHTML = `<strong>${dataExtenso}</strong>`;
+        }
+
+    </script>
+    
+</body>
+</html>

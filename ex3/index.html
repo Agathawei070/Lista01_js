@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media ponderada</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+
+    <div class="container">
+        <div class="card shadow-lg p-4 rounded mx-auto" style="max-width: 400px;">
+            <h2 class="text-center fw-bold">Cálculo da Média</h2>
+            <p class="text-center text-muted">Insira as três notas do aluno</p>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Atividade prática (Peso 2)</label>
+                <input type="number" id="nota1" class="form-control" placeholder="Ex: 8" min="0" max="10">
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Prova do semestre (Peso 5)</label>
+                <input type="number" id="nota2" class="form-control" placeholder="Ex: 7" min="0" max="10">
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Trabalho teórico (Peso 3)</label>
+                <input type="number" id="nota3" class="form-control" placeholder="Ex: 9" min="0" max="10">
+            </div>
+
+            <button class="btn btn-primary w-100 fw-bold" onclick="calcularMedia()">Calcular Média</button>
+
+            <div id="resultado" class="mt-3 text-center fw-bold"></div>
+        </div>
+    </div>
+    <script>
+        function calcularMedia(){
+            let nota1 = parseFloat(document.getElementById("nota1").value);
+            let nota2 = parseFloat(document.getElementById("nota2").value);
+            let nota3 = parseFloat(document.getElementById("nota3").value);
+            let resultado = document.getElementById("resultado");
+
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3)){
+                resultado.innerHTML = "⚠️ Insira todas as notas!";
+                resultado.className = "mt-3 text-center fw-bold text-danger";
+                return;
+            }
+
+            let peso1 = 2, peso2 = 5, peso3 =3;
+            let media = ((nota1 * peso1)+(nota2 * peso2)+(nota3 * peso3)) / (peso1 + peso2 + peso3)
+            let classificacao = "";
+
+            if (media >= 9){
+                classificacao = "A";
+            } else if (media >= 8){
+                classificacao = "B";
+            } else if (media >= 7){
+                classificacao = "C";
+            } else if (media >= 6){
+                classificacao = "D";
+            } else if (media >= 5){
+                classificacao = "E";
+            } else {
+                classificacao = "F";
+            }
+
+        resultado.innerHTML = `🎓 A média do aluno é = <span class="text-primary">${media.toFixed(2)}</span> e a sua classificação é <span class="text-success">${classificacao}</span>`;
+            resultado.className = "mt-3 text-center fw-bold alert alert-info";
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

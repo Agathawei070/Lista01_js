@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculo de frete</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center">
+                <h2>Calculadora de Frete</h2>
+            </div>
+            <div class="card-body">
+                <form id="freteForm">
+                    <div class="mb-3">
+                        <label class="form-label">Região de Entrega:</label>
+                        <select id="regiao" class="form-select" required>
+                            <option value="">Selecione...</option>
+                            <option value="1">Sudeste</option>
+                            <option value="2">Sul</option>
+                            <option value="3">Centro-Oeste</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Quantidade de Peças:</label>
+                        <input type="number" id="numPecas" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Distância (km):</label>
+                        <input type="number" id="distancia" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" id="rastreamento" class="form-check-input">
+                        <label class="form-check-label">Deseja rastreamento (+ R$ 200,00)?</label>
+                    </div>
+
+                    <button type="button" class="btn btn-primary w-100" onclick="calcularFrete()">Calcular Frete</button>
+                </form>
+
+                <div class="mt-4" id="resultado" style="display: none;">
+                    <h4>Resultados:</h4>
+                    <p><strong>Custo do frete:</strong> R$ <span id="custoFrete">0.00</span></p>
+                    <p><strong>Custo do combustível:</strong> R$ <span id="custoCombustivel">0.00</span></p>
+                    <h5><strong>Custo total:</strong> R$ <span id="custoTotal">0.00</span></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calcularFrete(){
+            const precos = {
+                1: {nome: "Sudeste", precoBase: 1.20, desconto: 0.12 },
+                2: {nome: "Sul", precoBase: 1.30, desconto: 0.10 },
+                3: {nome: "Centro-Oeste", precoBase: 1.40, desconto: 0.15}
+            };
+
+            const TAXA_RASTREAMENTO = 200;
+
+            let regiao = document.getElementById("regiao").value;
+            let numPecas = parseInt(document.getElementById("numPecas").value);
+            let distancia = parseInt(document.getElementById("distancia").value);
+            let rastreamento = document.getElementById("rastreamento").checked;
+
+            if (!precos[regiao] || isNaN(numPecas) || isNaN(distancia) || numPecas <= 0 || distancia <= 0) {
+                alert("Por favor, preencha todos os campos corretamente!");
+                return;
+            }
+        
+        
+        let{precoBase, desconto} = precos[regiao];
+
+        let freteTotal;
+        if (numPecas >1000){
+            let pecasComDesconto = numPecas - 1000;
+            let precoComDesconto = precoBase * (1 - desconto);
+            freteTotal = (1000 * precoBase) + (pecasComDesconto * precoComDesconto);
+        } else {
+            freteTotal = numPecas * precoBase;
+        }
+
+        let custoCombustivel = distancia;
+
+        if(rastreamento){
+            freteTotal += TAXA_RASTREAMENTO;
+        }
+
+        let custoFinal = freteTotal + custoCombustivel;
+
+        document.getElementById("custoFrete").textContent = freteTotal.toFixed(2);
+        document.getElementById("custoCombustivel").textContent = custoCombustivel.toFixed(2);
+        document.getElementById("custoTotal").textContent = custoFinal.toFixed(2);
+        document.getElementById("resultado").style.display = "block";
+        } 
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>
