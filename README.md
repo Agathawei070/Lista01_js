@@ -64,11 +64,5 @@ cd Lista01_js
     node script.js
     ```
 
-## 🌐 Licença
-
-Este projeto está licenciado sob a [Licença MIT](LICENSE). Sinta-se à vontade para utilizar e modificar conforme necessário!
-
----
-
 💚 *Aprender JavaScript é um caminho cheio de descobertas. Continue explorando e praticando!* 💚
 
